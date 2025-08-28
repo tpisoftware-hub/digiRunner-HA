@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: main-dgr-service
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+spec:
+  type: {{ .Values.environment.dgr.service.type }}
+  ports:
+  - name: dgr-http
+    protocol: TCP
+    port: {{ .Values.environment.dgr.service.port}}
+    targetPort: {{ .Values.environment.dgr.container.port}}
+  - name: keeper-tcp
+    protocol: TCP
+    port: {{ .Values.environment.keeper.service.port}}
+    targetPort: {{ .Values.environment.keeper.container.port}}
+  - name: database-tcp
+    protocol: TCP
+    port: {{ .Values.environment.database.service.port}}
+    targetPort: {{ .Values.environment.database.container.port}}
+  selector:
+    app: {{ .Release.Name }}-main-dgr

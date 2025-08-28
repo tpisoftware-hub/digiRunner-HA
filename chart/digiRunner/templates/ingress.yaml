@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-ingress
+  labels:
+    app.kubernetes.io/name: {{ .Release.Name }}
+  annotations:
+    kubernetes.io/ingress.class: "gce"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /dgrv4
+            pathType: Prefix
+            backend:
+              service:
+                name: main-dgr-service
+                port:
+                  name: dgr-http
+          - path: /website/composer
+            pathType: Prefix
+            backend:
+              service:
+                name: main-dgr-service
+                port:
+                  name: dgr-http
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Release.Name }}-sec-dgr-service
+                port:
+                  name: dgr-http

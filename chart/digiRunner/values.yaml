@@ -1,0 +1,37 @@
+environment:
+  replicaCount: 1
+  dgr: 
+    container:
+      port: 8442
+    image: 
+      repo: null
+      tag: null
+    service:
+      type: NodePort
+      port: 80
+  keeper:
+    container:
+      port: 8085
+    service:
+      port: 8085
+  database:
+    container:
+      port: 9090
+    service:
+      port: 9090
+  composer: 
+    container:
+      port: 8440
+    image: 
+      repo: null
+      tag: null
+  ubbagent:
+    image:
+      repo: gcr.io/cloud-marketplace-tools/metering/ubbagent
+      tag: latest
+  file:
+    sh: "https://raw.githubusercontent.com/tpisoftware-hub/digiRunner-Standalone/refs/heads/main/resources/gcp_standalone/__call_update_ip_api.sh" 
+  persistentVolumeClaim:
+    storageClass: "standard-rwo"
+    size: "100Mi"
+  reportingSecret: null

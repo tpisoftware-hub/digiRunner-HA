@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-sec-dgr-service
+  annotations:
+    cloud.google.com/neg: '{"ingress": true}'
+spec:
+  type: {{ .Values.environment.dgr.service.type }}
+  ports:
+  - name: dgr-http
+    protocol: TCP
+    port: {{ .Values.environment.dgr.service.port}}
+    targetPort: {{ .Values.environment.dgr.container.port}}
+  selector:
+    app: {{ .Release.Name }}-sec-dgr
