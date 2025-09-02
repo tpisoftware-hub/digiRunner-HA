@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/name: "{{ .Release.Name }}"
   annotations:
-    marketplace.cloud.google.com/deploy-info: '{"partner_id": "tpisoftware-digirunner-public", "product_id": "digirunnerha.endpoints.tpisoftware-digirunner-public.cloud.goog", "partner_name": "TPIsoftware"}'  
+    marketplace.cloud.google.com/deploy-info: '{"partner_id": "tpisoftware-digirunner-public", "product_id": "digirunner.endpoints.tpisoftware-digirunner-public.cloud.goog", "partner_name": "TPIsoftware"}'  
 spec:
   descriptor:
     type: digiRunner

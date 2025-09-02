@@ -29,6 +29,26 @@ Get up and running with a few clicks! To install this digiRunner app to a Google
 Kubernetes Engine cluster using Google Cloud Marketplace, follow the
 [on-screen instructions](https://console.cloud.google.com/marketplace/product/tpisoftware-digirunner-public/digirunner).
 
+### Cluster creation
+
+click "cluster creation page".
+
+![023](resources/023.png)
+
+Remember Name "cluster-1"
+
+![024](resources/024.png)
+
+Set the size to 1, then click Create.
+
+![025](resources/025.png)
+
+### Deploy Deploy application
+
+Select the newly created "cluster-1" and then click Create.
+
+![026](resources/026.png)
+
 ### Update Cluster Label
 
 After selecting the newly created cluster-1, click "Labels"
@@ -99,11 +119,11 @@ want to use, skip this step.
 ```shell
 export CLUSTER=digirunner-cluster
 export ZONE=us-west1-a
-export MACHINE=n2d-standard-4
+export MACHINE=n2d-standard-2
 ```
 
 ```shell
-gcloud container clusters create "$CLUSTER" --zone "$ZONE" --num-nodes=1 --machine-type="$MACHINE"   --labels=goog-partner-solution=isol_plb32_0014m00001xkhxaqae_gejobze4xblc7lw6mttk5k6rd3t7zxk6
+gcloud container clusters create "$CLUSTER" --zone "$ZONE" --num-nodes=2 --machine-type="$MACHINE"   --labels=goog-partner-solution=isol_plb32_0014m00001xkhxaqae_gejobze4xblc7lw6mttk5k6rd3t7zxk6
 ```
 
 #### Configure `kubectl` to connect to the cluster
@@ -117,7 +137,7 @@ gcloud container clusters get-credentials "$CLUSTER" --zone "$ZONE"
 Clone this repo and its associated tools repo:
 
 ```shell
-git clone --recursive https://github.com/tpisoftware-hub/digiRunner-HA.git
+git clone https://github.com/tpisoftware-hub/digiRunner-HA
 ```
 
 #### Install the Application resource definition
@@ -161,9 +181,9 @@ export NAMESPACE=default
 Configure the container images:
 
 ```shell
-export IMAGE_TAG=4.5.14-1
-export IMAGE_DGR_REPO="gcr.io/tpisoftware-digirunner-public/digirunner/digirunner"
-export IMAGE_COMPOSER_REPO="gcr.io/tpisoftware-digirunner-public/digirunner/composer"
+export IMAGE_TAG=4.5.18-3
+export IMAGE_DGR_REPO="gcr.io/tpisoftware-digirunner-public/ha/digirunner"
+export IMAGE_COMPOSER_REPO="gcr.io/tpisoftware-digirunner-public/ha/composer"
 ```
 
 Download service account key.
@@ -228,6 +248,28 @@ echo "https://console.cloud.google.com/kubernetes/application/${ZONE}/${CLUSTER}
 
 To view the app, open the URL in your browser.
 
+# Auto Scaling
+
+Go to "Kubernetes Engine" -> "Workloads", find the item ending with "sec-dgr", and then click on it.
+
+![027](resources/027.png)
+
+Go to "Details"
+
+![028](resources/028.png)
+
+Click "Configure" on "Horizontal Pod Autoscaler".
+
+![029](resources/029.png)
+
+Configure as shown below.
+
+![030](resources/030.png)
+
+Configuration is successfully completed, as shown below.
+
+![031](resources/031.png)
+
 # Using the app
 
 ## Sign in to your new digiRunner instance
@@ -243,12 +285,38 @@ MASTER_POD=$(kubectl -n$NAMESPACE get pod -oname | sed -n /\\/$APP_INSTANCE_NAME
 echo http://$EXTERNAL_IP/dgrv4/login
 ```
 
+# DNS Setup
+
+1.Log in to your domain management platform
+
+- Log in to the website where you bought your domain (e.g., GoDaddy, Namecheap, PChome).
+
+- Find the “Domain Management” or “DNS Management” page.
+
+2.Set up the main DNS records
+
+The two most common records:
+
+- A Record – points your domain to your website server IP
+  - Host/Name: @
+  - Value: your server IP (e.g., 123.123.123.123)
+- CNAME Record – points the www subdomain to your main domain
+  - Host/Name: www
+  - Value: example.com
+  
+In most cases, just setting these two is enough.
+
+3.Save and wait for propagation
+
+- Save your settings. DNS changes usually take 30 minutes to 24 hours to fully propagate.
+- You can check if it’s working by using ping yourdomain.com or an online DNS tool.
+
 # Configure the TLS certificate for digiRunner
 
 ## Set a static IP address
 
 1.Enter VPC networks.
-![005](resources/005.png) 
+![005](resources/005.png)
 
 2.IP addresses -> Reserve external static IP address.
 ![006](resources/006.png)
@@ -264,7 +332,7 @@ echo http://$EXTERNAL_IP/dgrv4/login
 1.Enter Load balancing.
 ![009](resources/009.png)
 
-2.Search for digirunner-HA, then click Edit.
+2.Search for digirunner, then click Edit.
 ![010](resources/010.png)
 
 3.Delete "Port: 80 item".

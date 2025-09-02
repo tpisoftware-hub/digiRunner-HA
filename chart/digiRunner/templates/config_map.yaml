@@ -17,7 +17,7 @@ data:
     # Metric names should match verbatim the identifiers created
     # during pricing setup.
     metrics:
-    - name: digirunner_HA
+    - name: digirunner_HA_High_Availability
       type: double
       endpoints:
       - name: on_disk
@@ -47,7 +47,7 @@ data:
         identity: gcp
         # The service name is unique to your application and will be
         # provided during onboarding.
-        serviceName: digirunnerha.endpoints.tpisoftware-digirunner-public.cloud.goog 
+        serviceName: digirunner.endpoints.tpisoftware-digirunner-public.cloud.goog 
         consumerId: $AGENT_CONSUMER_ID  # From the reporting secret.
       
 
@@ -59,7 +59,7 @@ data:
     sources:
     - name: instance_time_heartbeat
       heartbeat:
-        metric: digirunner_HA
+        metric: digirunner_HA_High_Availability
         intervalSeconds: 3600
         value:
           doubleValue: 1
