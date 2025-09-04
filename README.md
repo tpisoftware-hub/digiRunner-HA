@@ -174,7 +174,7 @@ Choose an instance name and
 for the app. In most cases, you can use the `default` namespace.
 
 ```shell
-export APP_INSTANCE_NAME=digirunner-HA
+export APP_INSTANCE_NAME=digirunner-ha
 export NAMESPACE=default
 ```
 
