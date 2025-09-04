@@ -59,7 +59,7 @@ Label data as follows
 
 ``` textile
 Key：goog-partner-solution
-Value：isol_plb32_0014m00001xkhxaqae_gejobze4xblc7lw6mttk5k6rd3t7zxk6
+Value：isol_plb32_0014m00001xkhxaqae_whuoy6xpkjmbfwmb5m37lngscbjkmnbi
 ```
 
 ![022](resources/022.png)
@@ -123,7 +123,7 @@ export MACHINE=n2d-standard-2
 ```
 
 ```shell
-gcloud container clusters create "$CLUSTER" --zone "$ZONE" --num-nodes=2 --machine-type="$MACHINE"   --labels=goog-partner-solution=isol_plb32_0014m00001xkhxaqae_gejobze4xblc7lw6mttk5k6rd3t7zxk6
+gcloud container clusters create "$CLUSTER" --zone "$ZONE" --num-nodes=2 --machine-type="$MACHINE"   --labels=goog-partner-solution=isol_plb32_0014m00001xkhxaqae_whuoy6xpkjmbfwmb5m37lngscbjkmnbi
 ```
 
 #### Configure `kubectl` to connect to the cluster
@@ -174,7 +174,7 @@ Choose an instance name and
 for the app. In most cases, you can use the `default` namespace.
 
 ```shell
-export APP_INSTANCE_NAME=digirunner-1
+export APP_INSTANCE_NAME=digirunner-HA
 export NAMESPACE=default
 ```
 
