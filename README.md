@@ -39,9 +39,13 @@ Remember Name "cluster-1"
 
 ![024](resources/024.png)
 
-Set the size to 1, then click Create.
+Set the size to 1.
 
 ![025](resources/025.png)
+
+Set Machine type to "e2-standard-2 (2 vCPU, 1 core, 8 GB memory)", then click Create.
+
+![032](resources/032.png)
 
 ### Deploy Deploy application
 
@@ -181,7 +185,7 @@ export NAMESPACE=default
 Configure the container images:
 
 ```shell
-export IMAGE_TAG=4.5.17-7-00
+export IMAGE_TAG=4.7.1-1-00
 export IMAGE_DGR_REPO="gcr.io/tpisoftware-digirunner-public/digirunner/digirunner"
 export IMAGE_COMPOSER_REPO="gcr.io/tpisoftware-digirunner-public/digirunner/composer"
 ```
